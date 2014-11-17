@@ -7,17 +7,16 @@ class SessionsController < ApplicationController
 
 
 	def create 
-	    @user = User.where(email: params[:session][:email]).first
-
-	    if @user && @user.authenticate(params[:session][:password])
-			session_create 
-			redirect_to in_path notice: "You've logged in!"
+		@user = User.where(email: params[:session][:email])
+		if @user == nil || @user.authenticate(params[:session][:password])
+			flash[:error] = "Invalid email format"
+			render "new"
 		else 
-			flash.now[:notice] = "invalid login"
-			render :new
+			session[:remember_token] = @user.id.to_s 
+			@current_user = user 
+			redirect_to root_path 
 		end 
 	end 
-
 
 	def destroy 
 		session.delete[:remember_token]

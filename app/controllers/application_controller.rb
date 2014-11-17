@@ -5,11 +5,15 @@ class ApplicationController < ActionController::Base
 
   include ApplicationHelper
 
-  def session_create 
-  	session[:remember_token] = @user.id 
-  	@current_user = @user 
+  def session_create
+      current_user = user
+  	session[:remember_token] = user.id.to_s 
   end 
 
+
+def current_user 
+  @current_user ||= session[:remember_token] && User.find(session[:remember_token])
+end
 
   def authenticate_user 
   	unless self.current_user
