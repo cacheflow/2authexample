@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141117062512) do
+ActiveRecord::Schema.define(version: 20141117095720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20141117062512) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "otp_secret_key"
+    t.string   "password"
+    t.string   "password_digest"
   end
 
 end
