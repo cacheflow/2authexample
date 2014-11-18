@@ -1,6 +1,8 @@
 <% if @current_user %>  
 <p>Hello <%=current_user.email %> </p>
 
+<%=link_to "Log out", sessions_destroy_path, :method => :post %> 
+
 <% else %> 
 	<%= form_for :session, :url => sessions_path do |f| %>
 	Email	<%= f.email_field :email %> 

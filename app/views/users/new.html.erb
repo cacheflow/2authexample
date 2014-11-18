@@ -1,5 +1,13 @@
+<% if current_user %> 
+<p>Hello this is the Users page <%=current_user.email %> </p>
+<%= link_to "Log out", new_session_path, :method => :delete %> 
+<% end %> 
+
+<% if !current_user %> 	
 <%=form_for @user do |f| %> 
-	Email <%= f.email_field :email %> 
-	Password <%= f.password_field :password %>
+		Email <%= f.email_field :email %> 
+		Password <%= f.password_field :password %>
+		Number <%= f.text_field :number %> 
 	<%= f.submit %> 
 	<% end %> 
+<% end %> 

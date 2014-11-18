@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root "users#new"
   resources :users 
   get "in" => "users#logged_in" 
+  get "auth" => "users#auth"
   resources :sessions, :only => [:new, :create, :destroy] 
 
   # Example of regular route:

@@ -7,24 +7,25 @@ class SessionsController < ApplicationController
 
 
 	def create 
-		@user = User.where(email: params[:session][:email])
-		if @user == nil || @user.authenticate(params[:session][:password])
-			flash[:error] = "Invalid email format"
-			render "new"
-		else 
-			session[:remember_token] = @user.id.to_s 
-			@current_user = user 
-			redirect_to root_path 
+		@user = User.where(email: params[:session][:email], number: params[:session][:number]).first
+		if @user && @user.authenticate(params[:session][:password])
+			@user.send_auth 
+			if  @user.authenticate_otp 
+				session[:remember_token] = @user.id.to_s 
+				@current_user = user 
+				redirect_to in_path 
+			
+			end 
 		end 
 	end 
 
 	def destroy 
-		session.delete[:remember_token]
+		session.delete(:remember_token)
 		redirect_to new_session_path 
 	end 
 
 
-
+	
 
 
 

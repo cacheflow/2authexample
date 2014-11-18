@@ -1,7 +1,19 @@
+require "twilio-ruby"
 require "bcrypt"
 class User < ActiveRecord::Base
 
 has_one_time_password
+
+
+def send_auth 
+        @client = Twilio::REST::Client.new ENV["TWILIO_SID"], ENV["TWILIO_AUTH_TOKEN"]
+        @client.messages.create(
+            from:  ENV["TWILIO_NUMBER"],
+            to: self.number, 
+            body: "Your temporary code is #{self.otp_code}"
+        )
+     
+end 
 
 
  def password

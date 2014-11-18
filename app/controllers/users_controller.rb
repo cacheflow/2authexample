@@ -27,9 +27,11 @@ end
 
 
 def user_params
-	params.require(:user).permit(:email, :password)
+	params.require(:user).permit(:email, :password, :number)
 end 
 
+def two_auth 
+end 
 
 
 
